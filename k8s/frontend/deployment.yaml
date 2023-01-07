@@ -17,5 +17,6 @@ spec:
       containers:
       - name: todo-app-front-container
         image: ekajto/todo-app-front-inz-sys-proj-zal
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80

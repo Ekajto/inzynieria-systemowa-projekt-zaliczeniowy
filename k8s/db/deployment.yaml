@@ -12,9 +12,14 @@ spec:
       labels:
         app: postgres
     spec:
+      volumes:
+      - name: postgres-pv-storage
+        persistentVolumeClaim:
+          claimName: postgres-pv-claim
       containers:
         - name: postgres
           image: postgres:14.6-alpine
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5432
           envFrom:
@@ -23,9 +28,8 @@ spec:
             - secretRef:
                 name: secrets
           volumeMounts:
-            - mountPath: /var/lib/postgresql/data
-              name: postgredb
-      volumes:
-        - name: postgredb
-          persistentVolumeClaim:
-            claimName: postgres-pv-claim
+            -  name: postgres-pv-storage
+               mountPath: /var/lib/postgresql/data
+          resources:
+            limits:
+              memory:

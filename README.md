@@ -7,6 +7,7 @@ Docker images are available here https://hub.docker.com/u/ekajto
 ## docker compose
 
 To run
+
 ```bash
 docker-compose up -d
 ```
@@ -14,6 +15,7 @@ docker-compose up -d
 Navigate to http://localhost:80
 
 To stop
+
 ```bash
 docker-compose down
 ```
@@ -21,16 +23,27 @@ docker-compose down
 ## k8s using minikube
 
 To run minikube first
+
 ```bash
 minikube start
 ```
 
-To create stack
+Open tunneling in seperate window
+
 ```bash
-kubectl apply -R -f k8s/
+minikube tunnel
+```
+
+To create stack in `inz-sys-ekajto` namespace
+
+```bash
+bash k8s_deployment.sh
 ```
 
 To get frontend url
+
 ```bash
-minikube service todo-app-front-service --url
+minikube service todo-app-front-service -n inz-sys-ekajto --url
 ```
+
+Follow provided url
