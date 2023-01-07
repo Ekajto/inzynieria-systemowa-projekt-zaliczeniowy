@@ -9,6 +9,7 @@ const { createTodo, doneTodo, deleteTodo } = store;
 </script>
 
 <template>
+  <h1>TO DO LIST</h1>
   <main>
     <todo-input @todo-added="createTodo" />
     <ul>

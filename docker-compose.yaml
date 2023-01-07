@@ -15,7 +15,7 @@ services:
         - '5432:5432'
       volumes: 
         - postgres_data:/var/lib/postgresql/data
-    backend:
+    todo-app-back-service:
       container_name: todo-app-back
       image: ekajto/todo-app-back-inz-sys-proj-zal
       build:
@@ -29,17 +29,15 @@ services:
         - "8000:8000"
       depends_on:
         - postgres
-    frontend:
+    todo-app-front-service:
       container_name: todo-app-front
       image: ekajto/todo-app-front-inz-sys-proj-zal
       build:
         context: ./frontend/
         dockerfile: Dockerfile
-      environment:
-        BACKEND_APP_PORT: 8000
       ports:
         - "80:80"
       depends_on:
-        - backend
+        - todo-app-back-service
 
 

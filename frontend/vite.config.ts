@@ -8,7 +8,9 @@ import { defineConfig } from "vite";
 export default defineConfig({
   plugins: [vue(), vueJsx()],
   server: {
-    port: 3000,
+    proxy: {
+      "/todos": "http://localhost:8000/todos",
+    },
   },
   resolve: {
     alias: {

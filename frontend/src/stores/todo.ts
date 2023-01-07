@@ -3,9 +3,7 @@ import { defineStore } from "pinia";
 import { ref, type Ref } from "vue";
 
 const api = axios.create({
-  baseURL: process.env.BACKEND_APP_PORT
-    ? `http://localhost:${process.env.BACKEND_APP_PORT}`
-    : "http://localhost:8000",
+  baseURL: import.meta.env.DEV ? "http://localhost:8000/todos" : "/todos",
 });
 
 type Todo = {
@@ -20,7 +18,7 @@ export const useTodoStore = defineStore("todo", () => {
 
   async function getAllTodos() {
     try {
-      const { data } = await api.get("/todos");
+      const { data } = await api.get("");
       todos.value = data as Todo[];
     } catch (e) {
       todos.value = [];
@@ -28,13 +26,13 @@ export const useTodoStore = defineStore("todo", () => {
   }
 
   async function createTodo(to_do: string) {
-    await api.post("/todos", { to_do });
+    await api.post("", { to_do });
     await getAllTodos();
   }
 
   async function deleteTodo(id: number) {
     try {
-      await api.delete(`/todos/${id}`);
+      await api.delete(`${id}`);
     } catch (e) {
       console.error(e);
     }
@@ -43,7 +41,7 @@ export const useTodoStore = defineStore("todo", () => {
 
   async function doneTodo({ id }: { id: number }) {
     try {
-      await api.put(`/todos/${id}/done`);
+      await api.put(`${id}/done`);
     } catch (e) {
       console.error(e);
     }

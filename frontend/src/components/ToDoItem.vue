@@ -1,6 +1,7 @@
 <template>
   <div>
     <h3>{{ todo.to_do }}</h3>
+    <h5>{{ todo.create_date }}</h5>
     <input type="checkbox" v-model="checked" :v-on:checked="toggle" />
     <button @click="remove()">Remove</button>
   </div>
@@ -10,7 +11,7 @@
 import { computed } from "vue";
 const checked = computed({
   get() {
-    return props.todo.completed;
+    return props.todo.is_done;
   },
   set(value) {
     toggle(value);

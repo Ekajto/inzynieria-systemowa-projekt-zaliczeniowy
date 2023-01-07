@@ -12,12 +12,6 @@ from starlite.plugins.sql_alchemy import SQLAlchemyConfig, SQLAlchemyPlugin
 from starlite.status_codes import HTTP_404_NOT_FOUND
 
 
-def build_database_uri(user: Union[str, None], password: Union[str, None], db: Union[str, None]) -> str:
-    if user and password and db:
-        return f"postgresql+asyncpg://{user}:{password}@postgres:5432/{db}"
-    return "sqlite+aiosqlite:///test.sqlite"
-
-
 class AppSettings(BaseSettings):
     POSTGRES_USER: Union[str, None] = None
     POSTGRES_PASSWORD: Union[str, None] = None

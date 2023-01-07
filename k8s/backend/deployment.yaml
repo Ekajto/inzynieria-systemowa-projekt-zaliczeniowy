@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-app-back-deployment
+  labels:
+    app: todo-app-back-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: todo-app-back-pod
+  template:
+    metadata:
+      name: todo-app-back-pod
+      labels:
+        app: todo-app-back-pod
+    spec:
+      containers:
+      - name: todo-app-back-container
+        image: ekajto/todo-app-back-inz-sys-proj-zal
+        ports:
+          - containerPort: 8000
+        envFrom:
+        - configMapRef:
+            name: cm
+        - secretRef:
+            name: secrets
